@@ -1,17 +1,35 @@
 {
-  "name": "fetch",
+  "name": "notes",
   "version": "1.0.0",
-  "description": "",
+  "description": "Time to get hands on with Node.js development! Today, you’ll begin a multi-day build of a command-line `(Terminal-based)` note taking application.",
   "bin": {
     "fetch": "index.js"
   },
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint **/*.js",
+    "test": "jest --verbose --coverage",
+    "test-watch": "jest --watchAll --verbose --coverage"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "is-url": "^1.2.4",
+    "jest": "^26.3.0",
     "minimist": "^1.2.5"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PengChen11/notes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PengChen11/notes/issues"
+  },
+  "homepage": "https://github.com/PengChen11/notes#readme"
 }

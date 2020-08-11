@@ -1,79 +1,97 @@
-# LAB: Node Ecosystem
+# Notesy
 
-Time to get hands on with Node.js development! Today, you’ll begin a multi-day build of a command-line `(Terminal-based)` note taking application.
+A terminal based `(CLI)` application allowing users to easily create and manage a list of categorized notes
 
-This begins the first of a 4-part build of an application called Notesy. Today, our goal will be to get the basic wiring of the application in place, ensuring that our notes app can receive user input `(a note)` and provide some basic output in response.
+This project is devided into 4 classes.
+[Click here to go to the readme file for class-01](progress/class_01_readme.md)
 
-## Before you begin
-
-1. Refer to the Getting Started guide in the lab submission instructions
-2. Create a new repository for this project, called notes and work in a branch called class-01, created from master
-3. Following completion of this assignment, you may merge this branch back into your master branch.
+[Click here to go to the readme file for class-02](progress/class_02_readme.md)
 
 ## Business Requirements
 
-Refer to the Notesy Overview for a complete review of the application, including Business and Technical requirements along with the development roadmap.
+Using only the terminal, a user should be able to perform the following actions:
 
-## Phase 1 Requirements
+- List the notes in the database
+  - All Notes: node notes.js --list
+  - Notes in a category: node notes.js --list school
 
-For the first phase, our notes application will accept and validate the user’s input, and confirm that the note was valid.
+- Add a note to the database.
+  - i.e. `node notes.js -add “This is fun” –category school
 
-- As a user, I want to be able to call the application using command line standard syntax, indicating the text of a note I wish to add so that the system will eventually be able to save this note.
-- As a user, I expect that the application will confirm my intent.
+- Users should be able to delete a single note
+  - node notes.js --delete id
 
-### For Example
+## Technical Requirements
+
+The application will be created with the following overall architecture and methodologies
+
+1. Node.js
+
+  - ustom Modules to handle the application logic
+    - input.js will:
+      - Parse the users’ input
+      - Map that to a command `(i.e. add, delete)`
+      - Identify the data to give to the command `(i.e. the note text)`
+    - notes.js will take a command + it’s data and execute it
+      - add, delete, list
+  - Third party modules to handle common cases
+    - Command Line input parsing using a node/npm library
+    - Mongo persistence using Mongoose
+
+2. ES6 Classes
+
+3. Persistence using a Mongo Database `(NoSQL)`
+
+4. Mongoose Schemas to define and model the data for Mongo
+  - lib/model/notes-schema.js will define the data for a note
+
+5. Abstracted Data Models representing the Mongo Collections
+  - lib/model/notes-collection.js will be used by notes.js save/delete/query the database
+
+6. Test Driven Development, using Jest
+  - Tests will be runnable locally
+   - Tests will auto-execute `(CI)` in your repo using GitHub actions
+  - Tests will use a 3rd party library called supergoose to “mock” the mongo running database
+
+7. Documented Code using JSDoc
+
+8. Deployment via NPM
+
+## Application Structure `(proposed)`
 
 ```CLI
-node nodes.js --add "This is a really cool thing that I wanted to remember for later"
+├── .gitignore
+├── .eslintrc.json
+├── __tests__
+│   ├── input.test.js
+│   ├── notes.test.js
+├── lib
+│   ├── input.js
+│   ├── model
+│   │   ├── notes-collection.js
+│   │   └── notes-schema.js
+│   ├── notes.js
+├── notes.js
+└── package.json
 ```
 
-The system should respond with an on-screen confirmation message as follows
+## Development Process, Milestones
 
-```CLI
-Adding Note: This is a really cool thing that I wanted to remember for later
-```
+1. Phase 1: Application Setup
+  - Basic Input & Output from the command line, with flags and arguments
 
-## Technical Requirements / Notes
+2. Phase 2: Testing and Engineering
+  - Uses Classes and Object Orientation
+  - Uses TDD Practices
+  - Integrates with an online CI framework
 
-- Write this application in JavaScript as a Node.js application
-- The application must be able to parse command line arguments
-  - e.g.
-    - The --add `(or -a)` is used to tell your application that the user wants to ADD a new note
-    - All of the text following the -a, within quotes is the text of the note itself
-- If the user doesn’t provide a valid argument `(-a)`, show them an error
-- If the user specifies the flag, but doesn’t provide any text, show them an error
-- Otherwise, display a confirmation of the note text that they specified
+3. Phase 3: Persistence
+  - Notes may be assigned a category and will be saved in a database
+  - Notes may be viewed as a list
+  - Notes my be deleted
 
-Use the following files/structure
-
-### index.js - Your application’s “entry point”
-
-- Requires the library files you will be writing `(input, notes)`
-- Instantiates an instance of an “Input” parser module
-  - Parses the command line input and returns the command and data
-- Passes the command to the Notes library, which executes the command
-
-### lib/input.js
-
-- Exports a constructor function
-- Uses minimist `(or any other node/npm library of your choosing)` to read command line arguments
-- On instantiation, evaluates and validates the input
-  - Is the command `(i.e. ‘–add’)` a valid command
-  - Is there data associated with the command
-- Returns an instance containing the action to perform and the payload for the action
-  - for example:
-
-    ```Json
-      {
-        action: "add";
-        payload: "This is a really cool thing that I wanted to remember for later"
-      }
-    ```
-
-### lib/notes.js
-
-- Exports a constructor function
-- Has a prototype method called `execute()` that executes the correct operation, given the above object
-  - How will you use that object to run the correct method?
-    - You can predict that add won’t be the only action we’re going to have to handle…
-- Write a prototype method called `add()` that will create an object representing a note `(with an ID and the note text as properties)` and console.log the text of the note to be added when the add command is executed
+4. Phase 4: Fit and Finish
+  - Data Models are tuned
+  - App is Fully Tested
+  - App is Fully Documented
+  - Notesy is Deployed to NPM and Installable
