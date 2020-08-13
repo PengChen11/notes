@@ -3,9 +3,12 @@
 A terminal based `(CLI)` application allowing users to easily create and manage a list of categorized notes
 
 This project is devided into 4 classes.
-[Click here to go to the readme file for class-01](progress/class_01_readme.md)
 
-[Click here to go to the readme file for class-02](progress/class_02_readme.md)
+[Click here to go to the readme file for phase-01](phase-docs/phase_01_readme.md)
+
+[Click here to go to the readme file for phase-02](phase-docs/phase_02_readme.md)
+
+[Click here to go to the readme file for phase-03](phase-docs/phase_03_readme.md)
 
 ## Business Requirements
 
@@ -27,16 +30,16 @@ The application will be created with the following overall architecture and meth
 
 1. Node.js
 
-  - ustom Modules to handle the application logic
-    - input.js will:
-      - Parse the users’ input
-      - Map that to a command `(i.e. add, delete)`
-      - Identify the data to give to the command `(i.e. the note text)`
-    - notes.js will take a command + it’s data and execute it
-      - add, delete, list
-  - Third party modules to handle common cases
-    - Command Line input parsing using a node/npm library
-    - Mongo persistence using Mongoose
+   - ustom Modules to handle the application logic
+     - input.js will:
+       - Parse the users’ input
+       - Map that to a command `(i.e. add, delete)`
+       - Identify the data to give to the command `(i.e. the note text)`
+     - notes.js will take a command + it’s data and execute it
+       - add, delete, list
+   - Third party modules to handle common cases
+     - Command Line input parsing using a node/npm library
+     - Mongo persistence using Mongoose
 
 2. ES6 Classes
 
@@ -49,9 +52,9 @@ The application will be created with the following overall architecture and meth
   - lib/model/notes-collection.js will be used by notes.js save/delete/query the database
 
 6. Test Driven Development, using Jest
-  - Tests will be runnable locally
+   - Tests will be runnable locally
    - Tests will auto-execute `(CI)` in your repo using GitHub actions
-  - Tests will use a 3rd party library called supergoose to “mock” the mongo running database
+   - Tests will use a 3rd party library called supergoose to “mock” the mongo running database
 
 7. Documented Code using JSDoc
 
