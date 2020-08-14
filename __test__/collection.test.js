@@ -2,13 +2,10 @@
 
 require('@code-fellows/supergoose');
 
-const NotesCollection = require('../lib/model/notes-collection');
+const NotesCollection = require('../lib/model/notes-collection.js');
 const notesCollection = new NotesCollection();
-console.log('___________noteslollection_____----___---__----', notesCollection);
 
-// beforeEach(()=>{
-//   notesCollection.clear;
-// });
+beforeEach(notesCollection.clear);
 
 describe('Note collection', () => {
   const testData = {
@@ -39,7 +36,7 @@ describe('Note collection', () => {
     await notesCollection.create(testData.text, testData.category);
     await notesCollection.create(testData.test_2, testData.category_2);
     const noteList = await notesCollection.get();
-    expect(noteList.length).toBe(3);
+    expect(noteList.length).toBe(2);
   });
 
   it('get() can get target category notes list back', async () => {
@@ -47,7 +44,7 @@ describe('Note collection', () => {
     await notesCollection.create(testData.text, testData.category);
     await notesCollection.create(testData.test_2, testData.category_2);
     const noteList = await notesCollection.get(testData.category_2);
-    expect(noteList.length).toBe(2);
+    expect(noteList.length).toBe(1);
   });
 
   it('delete() can delete target notes', async () => {
@@ -60,9 +57,16 @@ describe('Note collection', () => {
 
   it('delete() can NOT delete notes that does not exsit', async () => {
     // const notesCollection = new NotesCollection();
-    const note = await notesCollection.create(testData.text, testData.category);
+    await notesCollection.create(testData.text, testData.category);
     const noteList = await notesCollection.delete('bad_id');
     expect(noteList).toBeFalsy();
+    // expect(await notesCollection.delete('bad_id')).toThrow('Note ID bad_id does not exsit in database.');
+    // try {
+    //   notesCollection.delete('bad_id');
+    // }
+    // catch (err) {
+    //   expect(err.message).toBe('Note ID bad_id does not exsit in database.');
+    // }
   });
 
 });
