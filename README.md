@@ -10,6 +10,8 @@ This project is devided into 4 classes.
 
 [Click here to go to the readme file for phase-03](phase-docs/phase_03_readme.md)
 
+[Click here to go to the readme file for phase-04](phase-docs/phase_04_readme.md)
+
 ## Business Requirements
 
 Using only the terminal, a user should be able to perform the following actions:
